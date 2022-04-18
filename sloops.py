@@ -1,6 +1,7 @@
 # The user enters the value and amount of money.
 # The program calculates the change and the number of small coins required for change
 
+
 def short_change(inwallet, price):
     result = []
     denominations = [1, 2, 5, 10, 50, 100, 200, 500, 1000, 2000, 5000]
