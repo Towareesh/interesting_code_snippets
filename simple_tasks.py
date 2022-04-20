@@ -77,11 +77,11 @@ def super_polindrom(val):
     ''' Проверка на полиндром слов/предложений, исключая не буквы '''
 
     res = ''
-    for i in range(len(val)):
-        if (65 <= ord(val[i]) <= 90 or
-            97 <= ord(val[i]) <= 122 or
-            192 <= ord(val[i]) <= 255):
-            res += val[i]
+    for i in val:
+        if (65 <= ord(i) <= 90 or
+            97 <= ord(i) <= 122 or
+            192 <= ord(i) <= 255):
+            res += i
     return res.upper()==res[::-1].upper()
 
 

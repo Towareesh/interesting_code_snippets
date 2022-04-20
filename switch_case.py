@@ -1,7 +1,7 @@
 ''' Implementation switch_case '''
 
 def switch_case(n):
-    switch = {
+    switches = {
         0: 'штиль',
         1: 'тихий ветер',
         2: 'легкий ветер',
@@ -11,4 +11,4 @@ def switch_case(n):
         6: 'сильный ветер'
     }.get(n, 'шторм')
 
-    return switch
+    return switches
