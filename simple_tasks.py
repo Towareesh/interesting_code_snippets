@@ -1,18 +1,16 @@
-''' for commit
-    git status
-    git add (file_name)
-    git commit -m 'master'
-'''
+# for commit:
+# git status
+# git add (file_name)
+# git commit -m 'master'
+# git push
 
 
 def power(a, n):
-    """"Возведение в степень"""
+    ''' Return a^n.
+    '''
     f = 1
-    if n == 0:
-        return 1
-    if n < 0:
-        return 1 / power(a, abs(n))
-
+    if n == 0: return 1
+    if n < 0 : return 1 / power(a, abs(n))
     while n != 0:
         n -= 1
         f *= a
@@ -20,7 +18,9 @@ def power(a, n):
 
 
 def reduce_fraction(num, degree):
-    """"Сокращение дроби"""
+    ''' Fraction reduction: (5, 40) >> (1, 8).
+        Return tuple(num, degree).
+    '''
 
     for i in range(1, max(num, degree)+1):
         if num % i == 0 and degree % i == 0:
@@ -28,14 +28,16 @@ def reduce_fraction(num, degree):
     return num // greatest_common_divisor, degree // greatest_common_divisor
 
 
-def matrix_speral(w, h):
-    ''' Заполнение матрицы по спирали '''
-    matrix = [[0]*h for i in range(w)]
+def matrix_speral(weidth, heigh):
+    ''' Filling the matrix in a spiral.
+        Return a matrix with dimensions (weidth, heigh).
+    '''
+    matrix = [[0]*heigh for i in range(weidth)]
     dx, dy, x, y = 0, 1, 0, 0
 
-    for i in range(1, w * h + 1):
+    for i in range(1, weidth * heigh + 1):
         matrix[x][y] = i
-        if matrix[(x + dx) % w][(y + dy) % h]:
+        if matrix[(x + dx) % weidth][(y + dy) % heigh]:
             dx, dy = dy, -dx
         x += dx
         y += dy    
@@ -43,39 +45,36 @@ def matrix_speral(w, h):
 
 
 class Matrix:
-    ''' Класс кофигурирует или выводит уже готовую матрицу  '''
-    def __init__(self, weidth, heigh) -> None:
+    ''' Сlass return a filled matrix.
+    '''
+    def __init__(self, weidth, heigh, filler):
         self.weidth = weidth
-        self.heigh = heigh
+        self.heigh  = heigh
+        self.filler = filler
 
-    def make(self, filler):
+    def make(self):
+        ''' Return a filled matrix.
+        '''
         arr = [['']*self.heigh for i in range(self.weidth)]
-
         for w in range(self.weidth):
             for h in range(self.heigh):
-                arr[w][h] = filler
-
-        return self.printed(arr)
+                arr[w][h] = self.filler
+        return arr
     
     def printed(self, arr):
+        ''' Matrix output to the console.
+            Return None.
+        '''
         for w in range(len(arr)):
             for h in range(len(arr[w])):
                 print(arr[w][h], end = ' ')
             print()
-        return ''
-
-
-def simetria(num):
-    ''' Проверка на полиндром 4х значного числа '''
-
-    num = str(num)
-    if num[0] == num[-1] and num[1] == num[2]: return True
-    return False
+        return
 
 
 def super_polindrom(val):
-    ''' Проверка на полиндром слов/предложений, исключая не буквы '''
-
+    ''' Checking for a palindrome, excluding non-letters.
+    '''
     res = ''
     for i in val:
         if (65 <= ord(i) <= 90 or
@@ -86,9 +85,10 @@ def super_polindrom(val):
 
 
 def eho_unix(file):
-    ''' Инициализация файла с нумерацией строк '''
+    ''' Opening a file with line numbering.
+    '''
     line_id = 1
-    with open('test.txt', encoding='utf-8', newline='') as f:
+    with open(file, encoding='utf-8', newline='') as f:
         for line in f:
             line_id += 1
             print('{0:>6} {1}'.format(line_id, line.rstrip()))
@@ -117,8 +117,8 @@ def isprime(n):
 
 
 def decompos_isprime(num):
-    ''' Разложение на простые множители '''
-
+    ''' Prime factorization.
+    '''
     result, divisor = [], 2
     while divisor * divisor <= num:
         if num % divisor == 0:
@@ -129,3 +129,53 @@ def decompos_isprime(num):
     if num > 1:
         result.append(num)
     return result
+
+
+def binary_search(hash_set, item):
+        midpoint = len(hash_set)//2
+        if hash_set[midpoint] == item:
+            return item
+        else:
+            if item < hash_set[midpoint]:
+                return binary_search(hash_set[:midpoint], item)
+            else:
+                return binary_search(hash_set[midpoint + 1:], item)
+
+
+def search_nums(hash_set, count_divs=4):
+    ''' Search numbers the count of divisors is 'count_divs'
+        Return {num: divisors}
+
+        Results of tests:
+        tests  : 20000+1 | 10000+1 | 25000+1 | 250000+1
+        time_v1: 0.45s   | 0.16s   | 0.64s   | 19.44s
+        time_v2: 0.33s   | 0.12s   | 0.45s   | 11.58s
+        time_v2: 0.19s   | 0.08s   | 0.23s   | 6.16s
+
+        time_v1 - version with iteration of values
+        time_v2 - v1 version with a list clipper if it is full
+        time_v3 - v2 version with a single call 'search_divs(i)'
+    '''
+    res = {}
+
+    def search_divs(num):
+        div = 1
+        divisors = []
+        while div ** 2 <= num:
+            if num % div == 0:
+                divisors.append(div)
+                if div != num // div:
+                    divisors.append(num // div)
+            if len(divisors) > count_divs:
+                return None
+            div += 1
+        divisors.sort()
+        return divisors
+
+    for i in hash_set:
+        divisors = search_divs(i)
+        if divisors != None:
+            res.update({i: divisors})
+    return res
+
+print(help(search_nums))
