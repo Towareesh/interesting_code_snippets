@@ -1,1 +1,1 @@
-# Collection of simple functions and solved problems
+# Collection of simple functions and solved problems #
