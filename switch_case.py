@@ -1,6 +1,8 @@
-''' Implementation switch_case '''
+# checkin
 
 def switch_case(n):
+    ''' Implementation switch_case
+    '''
     switches = {
         0: 'штиль',
         1: 'тихий ветер',
