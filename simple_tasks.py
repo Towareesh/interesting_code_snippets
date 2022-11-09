@@ -5,18 +5,6 @@
 # git push
 
 
-def power(a, n):
-    ''' Return a^n.
-    '''
-    f = 1
-    if n == 0: return 1
-    if n < 0 : return 1 / power(a, abs(n))
-    while n != 0:
-        n -= 1
-        f *= a
-    return f
-
-
 def reduce_fraction(num, degree):
     ''' Fraction reduction: (5, 40) >> (1, 8).
         Return tuple(num, degree).
@@ -77,9 +65,7 @@ def super_polindrom(val):
     '''
     res = ''
     for i in val:
-        if (65 <= ord(i) <= 90 or
-            97 <= ord(i) <= 122 or
-            192 <= ord(i) <= 255):
+        if i.isalpha():
             res += i
     return res.upper()==res[::-1].upper()
 
@@ -132,14 +118,16 @@ def decompos_isprime(num):
 
 
 def binary_search(hash_set, item):
-        midpoint = len(hash_set)//2
-        if hash_set[midpoint] == item:
-            return item
+    if not hash_set:
+        return None
+    midpoint = len(hash_set)//2
+    if hash_set[midpoint] == item:
+        return item
+    else:
+        if item < hash_set[midpoint]:
+            return binary_search(hash_set[:midpoint], item)
         else:
-            if item < hash_set[midpoint]:
-                return binary_search(hash_set[:midpoint], item)
-            else:
-                return binary_search(hash_set[midpoint + 1:], item)
+            return binary_search(hash_set[midpoint + 1:], item)
 
 
 def search_nums(hash_set, count_divs=4):
@@ -177,5 +165,3 @@ def search_nums(hash_set, count_divs=4):
         if divisors != None:
             res.update({i: divisors})
     return res
-
-print(help(search_nums))
