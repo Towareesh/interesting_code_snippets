@@ -57,7 +57,6 @@ class ChainSumV2(int):
     def __call__(self, val=0):
         return ChainSumV2(self + val)
 
-
 print(ChainSumV2(5)) # 5
 print(ChainSumV2(5)(2)) # 7
-print(ChainSumV2(5)(2)(-10)) # -3
+print(ChainSum(5)(2)(-10)) # -3

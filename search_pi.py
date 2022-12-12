@@ -38,5 +38,5 @@ def pi_digits(n):
             d, d1 = a / b, a1 / b1
 
 
-pi = [i for i in pi_digits(4000)]
-print(pi)
+pi = [i for i in pi_digits(40000)]
+print(pi[-1])
